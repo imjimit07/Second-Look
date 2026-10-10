@@ -57,7 +57,12 @@ def main():
     args = p.parse_args()
 
     df = pd.read_csv(args.data).dropna(subset=["text"])
-    _, val_df = train_test_split(df, test_size=0.2, random_state=42, shuffle=True)
+    # Evaluation protocol (see README "Evaluation protocol"):
+    # the val pool is split in half — thresholds are tuned on the tuning
+    # half; the other half is the held-out test split evaluate.py measures.
+    _, val_pool = train_test_split(df, test_size=0.2, random_state=42, shuffle=True)
+    val_df, _held_out_test = train_test_split(
+        val_pool, test_size=0.5, random_state=99, shuffle=True)
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     tokenizer = AutoTokenizer.from_pretrained(args.model)

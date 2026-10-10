@@ -1,26 +1,65 @@
 {
-  "sample_size": 300,
-  "systems": {
+  "protocol": {
+    "train_size": 11680,
+    "tuning_val_size": 1460,
+    "held_out_test_size": 1460,
+    "note": "Thresholds and fusion constants tuned on tuning-val only; all reported metrics measured on the held-out test split."
+  },
+  "binary": {
     "keyword_rules": {
-      "accuracy": 0.6567,
-      "precision": 0.7374,
-      "recall": 0.4867,
-      "f1": 0.5863
+      "accuracy": 0.5733,
+      "precision": 0.6667,
+      "recall": 0.2933,
+      "f1": 0.4074
     },
     "ollama_zero_shot": {
-      "accuracy": 0.6745,
-      "precision": 0.6133,
-      "recall": 0.9324,
-      "f1": 0.7399,
-      "coverage": 0.9933
+      "accuracy": 0.6467,
+      "precision": 0.5973,
+      "recall": 0.9,
+      "f1": 0.7181,
+      "coverage": 1.0
     },
     "second_look": {
-      "accuracy": 0.9067,
-      "precision": 0.8547,
-      "recall": 0.98,
-      "f1": 0.913,
-      "tactic_f1_micro": 0.8406,
-      "tactic_f1_macro": 0.7718
+      "accuracy": 0.92,
+      "precision": 0.8706,
+      "recall": 0.9867,
+      "f1": 0.925
+    },
+    "sample_size": 300
+  },
+  "tactic_level": {
+    "f1_micro": 0.8461,
+    "f1_macro": 0.7874,
+    "sample_size": 1460,
+    "per_tactic": {
+      "urgency": {
+        "threshold": 0.45,
+        "f1": 0.8589
+      },
+      "authority": {
+        "threshold": 0.35,
+        "f1": 0.852
+      },
+      "financial_lure": {
+        "threshold": 0.45,
+        "f1": 0.8
+      },
+      "credential_harvesting": {
+        "threshold": 0.55,
+        "f1": 0.8996
+      },
+      "payment_redirection": {
+        "threshold": 0.55,
+        "f1": 0.8421
+      },
+      "secrecy": {
+        "threshold": 0.55,
+        "f1": 0.8145
+      },
+      "tech_support": {
+        "threshold": 0.6,
+        "f1": 0.4444
+      }
     }
   }
 }

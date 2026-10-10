@@ -1,4 +1,4 @@
-,accuracy,precision,recall,f1,coverage,tactic_f1_micro,tactic_f1_macro
-keyword_rules,0.6567,0.7374,0.4867,0.5863,,,
-ollama_zero_shot,0.6745,0.6133,0.9324,0.7399,0.9933,,
-second_look,0.9067,0.8547,0.98,0.913,,0.8406,0.7718
+,accuracy,precision,recall,f1,coverage
+keyword_rules,0.5733,0.6667,0.2933,0.4074,
+ollama_zero_shot,0.6467,0.5973,0.9,0.7181,1.0
+second_look,0.92,0.8706,0.9867,0.925,

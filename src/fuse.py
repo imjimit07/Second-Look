@@ -38,7 +38,9 @@ PATTERN_PRIMARY_SCALE = 0.8          # winner of grid search; top-10 combos were
 class FusionResult:
     decision: str                       # "scam" | "suspicious" | "likely_legitimate"
     risk_score: int                     # 0-100
-    confidence: float                   # 0-1, distance from nearest threshold
+    boundary_distance: float            # 0.5-1.0, how far the score is from the
+                                        # nearest decision boundary — NOT a
+                                        # calibrated probability
     active_tactics: List[str] = field(default_factory=list)
     tactic_probabilities: Dict[str, float] = field(default_factory=dict)
     contributing_factors: List[str] = field(default_factory=list)
@@ -48,7 +50,7 @@ class FusionResult:
         return {
             "decision": self.decision,
             "risk_score": self.risk_score,
-            "confidence": round(self.confidence, 3),
+            "boundary_distance": round(self.boundary_distance, 3),
             "active_tactics": self.active_tactics,
             "tactic_probabilities": {k: round(v, 4) for k, v in self.tactic_probabilities.items()},
             "contributing_factors": self.contributing_factors,
@@ -123,14 +125,24 @@ def fuse(evidence: Dict[str, Any]) -> FusionResult:
     else:
         decision = "likely_legitimate"
 
-    # Confidence = normalized distance from the nearest threshold
+    # Boundary distance = how far the score is from the nearest decision
+    # boundary, normalized to [0.5, 1.0]. At a boundary: 0.5 (could flip
+    # either way). At the extreme: 1.0. This is a distance measure, not a
+    # calibrated probability — see README.
     if decision == "scam":
-        confidence = min((risk_score - SCAM_THRESHOLD) / (100 - SCAM_THRESHOLD) + 0.5, 1.0)
+        span = 100 - SCAM_THRESHOLD
+        boundary_distance = 0.5 + 0.5 * min((risk_score - SCAM_THRESHOLD) / span, 1.0)
     elif decision == "suspicious":
-        lower = (risk_score - SUSPICIOUS_THRESHOLD) / (SCAM_THRESHOLD - SUSPICIOUS_THRESHOLD)
-        confidence = 0.5 + 0.25 * abs(lower - 0.5) * 2
-    else:
-        confidence = min((SUSPICIOUS_THRESHOLD - risk_score) / SUSPICIOUS_THRESHOLD + 0.5, 1.0)
+        span = SCAM_THRESHOLD - SUSPICIOUS_THRESHOLD
+        distance_from_edge = min(
+            risk_score - SUSPICIOUS_THRESHOLD,
+            SCAM_THRESHOLD - risk_score,
+        )
+        boundary_distance = 0.5 + 0.5 * (distance_from_edge / (span / 2))
+    else:  # likely_legitimate
+        boundary_distance = 0.5 + 0.5 * min(
+            (SUSPICIOUS_THRESHOLD - risk_score) / SUSPICIOUS_THRESHOLD, 1.0
+        )
 
     # --- Human-readable contributing factors (for explanation + video) ---
     factors: List[str] = []
@@ -148,7 +160,7 @@ def fuse(evidence: Dict[str, Any]) -> FusionResult:
     return FusionResult(
         decision=decision,
         risk_score=risk_score,
-        confidence=float(confidence),
+        boundary_distance=float(boundary_distance),
         active_tactics=active_tactics,
         tactic_probabilities=tactic_probs,
         contributing_factors=factors,

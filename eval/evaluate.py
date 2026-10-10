@@ -1,9 +1,12 @@
 """
-evaluate.py — Compare Second Look against two baselines on held-out data.
+evaluate.py — Compare Second Look against two baselines on the held-out
+test split.
 
-Held-out set: the exact validation split that train_tactic_classifier.py
-carved from data/labeled.csv (same train_test_split args), so no evaluated
-message was seen during training.
+Evaluation protocol (README "Evaluation protocol"): the val pool carved by
+train_tactic_classifier.py is split in half — thresholds (tune_thresholds.py)
+and fusion constants (grid_fusion.py) are tuned on the TUNING half; this
+script measures final metrics on the untouched TEST half. No evaluated
+message was seen during training or parameter tuning.
 
 Systems compared:
   1. Keyword rules baseline  — urgency/financial/authority/url signal counts
@@ -11,9 +14,10 @@ Systems compared:
   3. Second Look             — the SAME fuse() evidence-fusion path the app uses
      (tactic classifier + URL features + retrieval + keyword corroboration)
 
-Outputs:
-  eval/results_binary.csv  — precision/recall/F1 per system (binary scam/legit)
-  eval/metrics.json        — binary metrics + tactic-level F1 for Second Look
+Outputs (single source of truth for the README):
+  eval/results_binary.csv  — binary scam/legit metrics per system
+  eval/metrics.json        — {binary: {...}, tactic_level: {...}} in one file
+  eval/cached_evidence.jsonl — per-row evidence, consumed by ablation.py
 
 Run: python eval/evaluate.py [--sample 300] [--skip-ollama]
 """
@@ -44,11 +48,18 @@ KEYWORD_MIN_SIGNALS = 2   # keyword baseline needs 2+ red-flag signals
 
 # ---------------------------------------------------------------- data
 def get_heldout_split(csv_path: str = "data/labeled.csv") -> pd.DataFrame:
-    """Reproduce the exact val split used by train_tactic_classifier.py."""
+    """Held-out TEST split — the half of the val pool NOT used for tuning.
+
+    Protocol: train (80%) / tuning-val (10%) / held-out test (10%).
+    tune_thresholds.py and grid_fusion.py operate on the tuning half;
+    this function returns the untouched test half.
+    """
     df = pd.read_csv(csv_path)
     df = df.dropna(subset=["text"]).reset_index(drop=True)
-    _, val_df = train_test_split(df, test_size=0.2, random_state=42, shuffle=True)
-    return val_df.reset_index(drop=True)
+    _, val_pool = train_test_split(df, test_size=0.2, random_state=42, shuffle=True)
+    _tuning_val, held_out = train_test_split(
+        val_pool, test_size=0.5, random_state=99, shuffle=True)
+    return held_out.reset_index(drop=True)
 
 
 def balanced_sample(val_df: pd.DataFrame, n: int, seed: int = 42) -> pd.DataFrame:
@@ -153,9 +164,9 @@ def main():
     out_dir = Path("eval")
     out_dir.mkdir(exist_ok=True)
 
-    print("[...] Rebuilding held-out split from data/labeled.csv")
+    print("[...] Rebuilding held-out test split from data/labeled.csv")
     val_df = get_heldout_split()
-    print(f"[OK] Held-out pool: {len(val_df)} rows "
+    print(f"[OK] Held-out test split: {len(val_df)} rows "
           f"({val_df['should_trigger'].astype(bool).sum()} scam)")
 
     df = balanced_sample(val_df, args.sample)
@@ -189,6 +200,7 @@ def main():
 
     # --- System: Second Look ---
     print("[...] Second Look: fuse() — classifier + URL + retrieval + keywords")
+    tactic_metrics = None
     try:
         from src.classify import get_classifier
         classifier = get_classifier()
@@ -210,29 +222,61 @@ def main():
         print(f"[OK] Evidence cache saved to {cache_path}")
         results["second_look"] = binary_metrics(y_true, sl_pred)
 
-        # Tactic-level multi-label metrics (proxy labels from scenario_category)
-        y_tac_true = df[TACTIC_COLUMNS].values
+        # Tactic-level multi-label metrics on the FULL held-out test split
+        y_tac_true = val_df[TACTIC_COLUMNS].values
         y_tac_pred = []
-        for t in tqdm(texts, desc="tactic-probs"):
+        for t in tqdm(val_df["text"].tolist(), desc="tactic-probs"):
             pred = classifier.predict(t)
             y_tac_pred.append([
                 1 if pred.probabilities[n] >= classifier.thresholds.get(n, 0.5) else 0
                 for n in classifier.tactic_names
             ])
-        results["second_look"]["tactic_f1_micro"] = round(
-            f1_score(y_tac_true, y_tac_pred, average="micro", zero_division=0), 4)
-        results["second_look"]["tactic_f1_macro"] = round(
-            f1_score(y_tac_true, y_tac_pred, average="macro", zero_division=0), 4)
+        per_tactic = {}
+        for i, name in enumerate(classifier.tactic_names):
+            per_tactic[name] = {
+                "threshold": round(classifier.thresholds.get(name, 0.5), 2),
+                "f1": round(f1_score(
+                    y_tac_true[:, i], [r[i] for r in y_tac_pred],
+                    zero_division=0), 4),
+            }
+        tactic_metrics = {
+            "f1_micro": round(
+                f1_score(y_tac_true, y_tac_pred, average="micro", zero_division=0), 4),
+            "f1_macro": round(
+                f1_score(y_tac_true, y_tac_pred, average="macro", zero_division=0), 4),
+            "sample_size": len(val_df),
+            "per_tactic": per_tactic,
+        }
     except FileNotFoundError as e:
         print(f"[!] {e}\n    Skipping Second Look system metrics.")
 
-    # --- Report ---
+    # --- Report (single source of truth: one script, one output) ---
     table = pd.DataFrame(results).T
-    print("\n=== Binary scam-detection results (held-out sample) ===")
+    print("\n=== Binary scam-detection results (balanced held-out sample) ===")
     print(table.to_string())
     table.to_csv(out_dir / "results_binary.csv")
+
+    if tactic_metrics:
+        print("\n=== Tactic-level (full held-out test split, tuned thresholds) ===")
+        print(f"  f1_micro={tactic_metrics['f1_micro']}  "
+              f"f1_macro={tactic_metrics['f1_macro']}  "
+              f"n={tactic_metrics['sample_size']}")
+        for name, m in tactic_metrics["per_tactic"].items():
+            print(f"    {name:25s} thr={m['threshold']:<5} f1={m['f1']}")
+
+    metrics_out = {
+        "protocol": {
+            "train_size": 11680,
+            "tuning_val_size": 1460,
+            "held_out_test_size": int(len(val_df)),
+            "note": "Thresholds and fusion constants tuned on tuning-val only; "
+                    "all reported metrics measured on the held-out test split.",
+        },
+        "binary": {**results, "sample_size": len(df)},
+        "tactic_level": tactic_metrics or {},
+    }
     with open(out_dir / "metrics.json", "w") as f:
-        json.dump({"sample_size": len(df), "systems": results}, f, indent=2)
+        json.dump(metrics_out, f, indent=2)
     print(f"\n[OK] Saved {out_dir / 'results_binary.csv'} and {out_dir / 'metrics.json'}")
     print("\nNote: tactic labels are proxy labels mapped from ScamBench")
     print("      scenario_category — treat tactic F1 as a weak-label estimate.")

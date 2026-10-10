@@ -54,7 +54,11 @@ def build_evidence(text, classifier, retriever):
 
 def main():
     df = pd.read_csv("data/labeled.csv").dropna(subset=["text"])
-    _, val_df = train_test_split(df, test_size=0.2, random_state=42, shuffle=True)
+    # Evaluation protocol: fusion constants are tuned on the TUNING half of
+    # the val pool only — the other half is the held-out test split.
+    _, val_pool = train_test_split(df, test_size=0.2, random_state=42, shuffle=True)
+    val_df, _held_out_test = train_test_split(
+        val_pool, test_size=0.5, random_state=99, shuffle=True)
     val_df = val_df.copy()
     val_df["is_scam"] = val_df["should_trigger"].astype(bool).astype(int)
 

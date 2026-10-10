@@ -361,7 +361,7 @@ if analyze_clicked and message.strip():
         <div class="sl-verdict-title">{VERDICT_TITLES[fusion.decision]}</div>
         <div class="sl-verdict-meta">
             <span>risk <strong>{fusion.risk_score}/100</strong></span>
-            <span>confidence <strong>{int(fusion.confidence * 100)}%</strong></span>
+            <span>boundary distance <strong>{int(fusion.boundary_distance * 100)}%</strong></span>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -441,6 +441,17 @@ if analyze_clicked and message.strip():
                     f'<div style="color:#8b8b94;font-size:14px;margin-bottom:14px;">{_esc(s.detail)}</div>',
                     unsafe_allow_html=True,
                 )
+
+    # --- Report links ---
+    if guidance.report_links:
+        st.markdown('<div class="sl-section">Report it</div>', unsafe_allow_html=True)
+        links_html = ""
+        for link in guidance.report_links:
+            links_html += (
+                f'<div class="sl-evidence hot"><a href="{link["url"]}" target="_blank" '
+                f'style="color:#f59e0b;text-decoration:none;">{link["name"]}</a></div>'
+            )
+        st.markdown(links_html, unsafe_allow_html=True)
 
 elif analyze_clicked:
     st.warning("Paste a message first.")

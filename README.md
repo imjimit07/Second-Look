@@ -86,37 +86,53 @@ flowchart TD
 | Explanation | Ollama `qwen3:4b`, constrained to the message + evidence | Grounded generation - cannot invent red flags; deterministic template fallback if the LLM is unavailable |
 | Guidance | Template-based action steps keyed to tactics and decision band | Deterministic; never fails on demo day |
 
-**Why not just prompt an LLM?** A zero-shot LLM matches our recall but has far worse precision (0.613 vs 0.855) and runs at ~2.7 items/s vs our ~53 items/s - **~20× slower** on the same machine. Second Look is a fine-tuned classifier plus retrieval plus a grounded generator, evaluated against both a keyword-rule baseline and a zero-shot LLM baseline.
+**Why not just prompt an LLM?** A zero-shot LLM reaches 0.900 recall but with far worse precision (0.597 vs 0.871) and runs at ~2.7 items/s vs our ~53 items/s - **~20× slower** on the same machine. Second Look is a fine-tuned classifier plus retrieval plus a grounded generator, evaluated against both a keyword-rule baseline and a zero-shot LLM baseline.
 
 **Privacy is a feature, not an implementation detail.** All inference - classifier, embeddings, retrieval, and the LLM explanation - runs **locally** via Ollama. No message content leaves the user's machine. A tool that asks you to paste your bank SMS into a server is self-defeating.
 
 ---
 
+## Evaluation protocol
+
+Thresholds and fusion parameters are tuned on a **tuning validation split**. Final metrics are reported on a **held-out test split** that is never used during tuning. Both splits are subsets of the ScamBench validation data; no test rows appear in training.
+
+| Split | Size | Purpose |
+|---|---|---|
+| Train | 11,680 | Classifier training only |
+| Tuning val | 1,460 | Threshold + fusion parameter search |
+| Held-out test | 1,460 | Final reported metrics (measured once, frozen parameters) |
+
+All numbers below come from a single run of `eval/evaluate.py` on the held-out test split — the same file writes `eval/metrics.json`, which is the single source of truth for this README.
+
+---
+
 ## Results
 
-Evaluated on a **300-row balanced held-out sample** (`should_trigger_scam_defense` as ground truth), using the **exact fusion logic** the app runs:
+Binary scam detection, on a **300-row balanced sample drawn from the held-out test split** (`should_trigger_scam_defense` as ground truth), using the **exact fusion logic** the app runs:
 
 | System | Accuracy | Precision | Recall | F1 |
 |---|---|---|---|---|
-| Keyword rules | 0.657 | 0.737 | 0.487 | 0.586 |
-| Zero-shot `qwen3:4b` | 0.675 | 0.613 | 0.932 | 0.740 |
-| **Second Look** | **0.907** | **0.855** | **0.980** | **0.913** |
+| Keyword rules | 0.573 | 0.667 | 0.293 | 0.407 |
+| Zero-shot `qwen3:4b` | 0.647 | 0.597 | 0.900 | 0.718 |
+| **Second Look** | **0.920** | **0.871** | **0.987** | **0.925** |
 
-**Tactic-level** (full 2,920-row val split, per-tactic thresholds): f1_micro **0.833**, f1_macro **0.821**.
+**Tactic-level** (full 1,460-row held-out test split, per-tactic tuned thresholds): f1_micro **0.846**, f1_macro **0.787**.
 
-Per-tactic F1-optimal thresholds (tuned on val by `train/tune_thresholds.py`):
+Per-tactic thresholds (F1-optimal on the tuning split, measured on the test split):
 
-| Tactic | Threshold | F1 |
+| Tactic | Threshold | F1 (test) |
 |---|---|---|
-| urgency | 0.30 | 0.850 |
-| authority | 0.35 | 0.836 |
-| financial_lure | 0.70 | 0.944 |
-| credential_harvesting | 0.45 | 0.861 |
-| payment_redirection | 0.60 | 0.919 |
-| secrecy | 0.50 | 0.803 |
-| tech_support | 0.60 | 0.533 |
+| urgency | 0.45 | 0.859 |
+| authority | 0.35 | 0.852 |
+| financial_lure | 0.45 | 0.800 |
+| credential_harvesting | 0.55 | 0.900 |
+| payment_redirection | 0.55 | 0.842 |
+| secrecy | 0.55 | 0.815 |
+| tech_support | 0.60 | 0.444 |
 
-Second Look **exceeds the zero-shot LLM's recall (0.980 vs 0.932) while raising precision by 24 points**, at ~20× the throughput.
+Second Look **exceeds the zero-shot LLM's recall (0.987 vs 0.900) while raising precision by 27 points**, at ~20× the throughput.
+
+> **Boundary distance is not a calibrated probability.** The app reports how far the risk score sits from the nearest decision threshold (0.5 = at a boundary, 1.0 = at the extreme of a band). It makes no claim about P(scam | message).
 
 ### Ablation - what each component actually contributes
 
@@ -124,13 +140,13 @@ Second Look **exceeds the zero-shot LLM's recall (0.980 vs 0.932) while raising 
 
 | System | Accuracy | Precision | Recall | F1 |
 |---|---|---|---|---|
-| Full Second Look | 0.907 | 0.855 | 0.980 | 0.913 |
-| − URL features | 0.907 | 0.855 | 0.980 | 0.913 |
-| − Retrieval | 0.907 | 0.855 | 0.980 | 0.913 |
-| − Tactic classifier | 0.520 | 1.000 | 0.040 | 0.077 |
-| − Fusion formula (plain max) | 0.900 | 0.857 | 0.960 | 0.906 |
+| Full Second Look | 0.920 | 0.871 | 0.987 | 0.925 |
+| − URL features | 0.920 | 0.871 | 0.987 | 0.925 |
+| − Retrieval | 0.920 | 0.871 | 0.987 | 0.925 |
+| − Tactic classifier | 0.507 | 1.000 | 0.013 | 0.026 |
+| − Fusion formula (plain max) | 0.920 | 0.871 | 0.987 | 0.925 |
 
-Honest reading: on this benchmark the **tactic classifier carries the binary decision** - remove it and F1 collapses to 0.077. URL features and retrieval show no binary delta *here* because ScamBench scams are tactic-heavy, so the classifier already covers them; and our fusion formula buys +2pt recall over a naive max.
+Honest reading: on this benchmark the **tactic classifier carries the binary decision** - remove it and F1 collapses to 0.026. URL features, retrieval, and the fusion formula's bonuses show no binary delta *here*, for two reasons. First, ScamBench scams are tactic-heavy, so the classifier already covers them. Second, the fusion formula's primary job is the **three-band decision** (scam / suspicious / likely_legitimate) - a distinction a binary metric cannot credit at all.
 
 But the benchmark under-credits the redundant components, because it doesn't contain their designed failure mode. **Adversarial probe** - a template phish with quiet text and a fresh domain (`"USPS: your package could not be delivered. Pay the 1.99 redelivery fee within 12 hours: usps-redelivery.top"`):
 
@@ -153,11 +169,11 @@ Retrieval is what catches scams that are new to the classifier but not new to th
 |---|---|
 | Doctor appointment (legit) | `likely_legitimate` 19/100 ✓ |
 | Amazon delivery (legit) | `likely_legitimate` 10/100 ✓ |
-| SBI phishing SMS | `scam` 100/100 (4 tactics) ✓ |
+| SBI phishing SMS | `scam` 99/100 (3 tactics) ✓ |
 | Microsoft tech-support scam | `scam` 96/100 ✓ |
 | Lottery advance-fee | `scam` 98/100 ✓ |
 
-Reproduce: `eval/results_binary.csv`, `eval/metrics.json`, `eval/cached_evidence.jsonl`.
+Unit tests: `pytest tests/ -v` — 12 tests covering decision bands, boundary-distance semantics (including the reviewer-found bug as a regression test), per-tactic thresholds, and robustness.
 
 ---
 
@@ -220,6 +236,16 @@ Honest scope, per Devpost submission requirement.
 - **Structural:** moves the design center of scam defense from *detection* (commoditized by Google and Microsoft) to *behavior* - manufacturing the second opinion scammers exist to prevent.
 - **Extensible:** the fusion + guidance + brief pipeline generalizes to payroll redirection, invoice fraud, romance scams, pig-butchering.
 
+### What an impact study would measure
+
+Classification metrics measure detection. They don't measure whether the user makes a safer decision. The outcome variables we would target in a future study are:
+
+1. **Decision latency on ambiguous messages** - does the tool slow the user down enough to consult someone else?
+2. **Second-opinion rate** - what fraction of flagged messages result in the user forwarding the brief?
+3. **False reassurance rate** - what fraction of actual scams does the user still act on despite a scam verdict?
+
+We do not claim any of these improved. Measuring them is the next stage.
+
 ---
 
 ## Track
@@ -257,6 +283,8 @@ second-look/
 │   ├── grid_fusion.py              # Fusion constant tuning
 │   ├── results_binary.csv
 │   └── metrics.json
+├── tests/
+│   └── test_fuse.py                # Fusion + boundary-distance regression tests
 ├── data/
 │   ├── patterns/scam_patterns.jsonl   # 65 patterns (45 scam + 20 legitimate)
 │   ├── labeled.csv                     # Training data (ScamBench + benign negatives)
