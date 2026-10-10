@@ -198,8 +198,16 @@ def main():
         except FileNotFoundError as e:
             print(f"[!] {e}\n    Continuing without retrieval evidence.")
             retriever = None
-        sl_pred = [predict_second_look(t, classifier, retriever)
-                   for t in tqdm(texts, desc="second-look")]
+        sl_pred = []
+        cache_path = out_dir / "cached_evidence.jsonl"
+        with open(cache_path, "w", encoding="utf-8") as cache_f:
+            for t, truth in tqdm(list(zip(texts, y_true)), desc="second-look"):
+                ev = build_evidence(t, classifier, retriever)
+                sl_pred.append(int(fuse(ev).is_scam))
+                cache_f.write(json.dumps(
+                    {"evidence": ev, "truth": int(truth)},
+                    ensure_ascii=False) + "\n")
+        print(f"[OK] Evidence cache saved to {cache_path}")
         results["second_look"] = binary_metrics(y_true, sl_pred)
 
         # Tactic-level multi-label metrics (proxy labels from scenario_category)

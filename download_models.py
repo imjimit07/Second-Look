@@ -64,6 +64,25 @@ def download_hf_models():
             print(f"[OK] Saved to {save_path}")
 
 
+def download_classifier(repo_id: str = "YOUR_HF_USERNAME/second-look-classifier"):
+    """Download the fine-tuned tactic classifier from HuggingFace Hub."""
+    from huggingface_hub import snapshot_download
+
+    target = MODELS_DIR / "tactic-classifier"
+    if (target / "label_metadata.json").exists():
+        print("[OK] Classifier already present.")
+        return
+    if "YOUR_HF_USERNAME" in repo_id:
+        print("[!] Placeholder repo id — set your HF username in "
+              "download_classifier(), or train locally with "
+              "train/train_tactic_classifier.py.")
+        return
+
+    print(f"[...] Downloading classifier from {repo_id}")
+    snapshot_download(repo_id=repo_id, local_dir=str(target))
+    print(f"[OK] Classifier saved to {target}")
+
+
 def download_datasets():
     """Download public scam/phishing datasets."""
     import urllib.request
@@ -121,6 +140,7 @@ if __name__ == "__main__":
     pull_ollama_model("qwen3:4b-instruct-2507-q8_0")
 
     download_hf_models()
+    download_classifier()
     download_datasets()
 
     print("\n[DONE] Setup complete. Run 'streamlit run app.py' to start.")
