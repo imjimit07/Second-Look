@@ -10,7 +10,7 @@
 
 **100% local inference classifier, retrieval, and LLM all run on your machine. Nothing you paste is uploaded anywhere.**
 
-[Demo video](YOUR_YT_LINK) · [Try it locally](#quickstart) · [Results](#results)
+[Demo video]([YOUR_YT_LINK](https://www.youtube.com/watch?v=GcXqLk5N88k) · [Try it locally](#quickstart) · [Results](#results)
 
 ---
 
