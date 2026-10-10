@@ -43,7 +43,7 @@ Given a suspicious SMS, email, DM, or chat log, Second Look returns:
 4. **Action steps** - ordered by priority: what to do now, how to verify, where to report.
 5. **A trusted-contact brief** - a short, warm message the user can send to someone they trust, written for *that person*. Renu can send it to her son at 2 AM his time; she doesn't have to explain what a phishing URL is - Second Look already did. She just has to hit send.
 
-![App screenshot](assets/scam.png)
+![App screenshot](assets/Scam.png)
 ![App screenshot](assets/Yes.png)
 
 ---
