@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Streamlit / local cruft
+.streamlit/
+
+# Large model weights — regenerate with train/train_tactic_classifier.py
+# (kept in git: config.json, label_metadata.json, thresholds.json, tokenizer)
+models/tactic-classifier/model.safetensors
+models/tactic-classifier/checkpoint-*/
+
+# Logs
+*.log

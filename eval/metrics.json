@@ -1,0 +1,26 @@
+{
+  "sample_size": 300,
+  "systems": {
+    "keyword_rules": {
+      "accuracy": 0.6567,
+      "precision": 0.7374,
+      "recall": 0.4867,
+      "f1": 0.5863
+    },
+    "ollama_zero_shot": {
+      "accuracy": 0.6745,
+      "precision": 0.6133,
+      "recall": 0.9324,
+      "f1": 0.7399,
+      "coverage": 0.9933
+    },
+    "second_look": {
+      "accuracy": 0.9067,
+      "precision": 0.8547,
+      "recall": 0.98,
+      "f1": 0.913,
+      "tactic_f1_micro": 0.8406,
+      "tactic_f1_macro": 0.7718
+    }
+  }
+}

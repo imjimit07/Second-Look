@@ -1,0 +1,65 @@
+message_id,text,t1_urgency,t2_authority,t3_financial,t4_credential,t5_payment,t6_secrecy,t7_tech_support,notes
+p001,Your account has been suspended due to suspicious activity. Verify immediately at the link below or it will be permanently closed.,1,1,0,1,0,0,0,smoke: seed pattern
+p002,"You are eligible for a tax refund of Rs 15,000. Click here to claim before it expires.",0,1,1,0,0,0,0,smoke: seed pattern
+p003,Windows Defender has detected 5 viruses on your computer. Call Microsoft support immediately at 1-800-XXX-XXXX.,1,0,0,0,0,0,1,smoke: seed pattern
+p004,Please update our payment details. We have switched banks. Wire the invoice amount to the new account below.,0,1,0,0,1,0,0,smoke: seed pattern
+p005,"Congratulations, you have won our international lottery. Keep this confidential until funds are transferred.",0,0,1,0,0,1,0,smoke: seed pattern
+p006,Your parcel could not be delivered. Pay the Rs 25 rescheduling fee here within 24 hours or it will be returned.,1,0,0,1,0,0,0,smoke: seed pattern
+p007,This is the cyber crime department. A case has been filed against you. Do not discuss with anyone. Call back immediately.,0,1,0,0,0,1,0,smoke: seed pattern
+p008,Invest just $250 and earn guaranteed 15% daily returns. Join our exclusive trading group today.,0,0,1,0,0,0,0,smoke: seed pattern
+p009,Your KYC is incomplete. Update it within 24 hours by clicking the link below or your account will be frozen.,0,1,0,1,0,0,0,smoke: seed pattern
+p010,Your electricity will be disconnected today. Pay immediately via the UPI ID below.,1,0,0,0,1,0,0,smoke: seed pattern
+p011,"To resolve the issue, please install AnyDesk and share the 9-digit code with our technician.",0,0,0,0,0,0,1,smoke: seed pattern
+p012,You are the beneficiary of an unclaimed estate worth $2.5 million. Contact our lawyer to claim.,0,1,1,0,0,0,0,smoke: seed pattern
+p013,Work from home and earn Rs 5000 daily. Pay a one-time registration fee of Rs 500 to start immediately.,1,0,1,0,0,0,0,smoke: seed pattern
+p014,We have compromising photos of you. Pay in bitcoin within 48 hours or we will send them to all your contacts. Do not contact police.,0,1,0,0,0,1,0,smoke: seed pattern
+p015,Only 3 left! 90% off iPhone. Order now before it's gone. Pay via UPI to confirm.,1,0,1,0,0,0,0,smoke: seed pattern
+p016,The government has approved a special subsidy for you. Verify your details at the link below.,0,1,0,0,0,0,0,smoke: seed pattern
+p017,Your email password will expire today. Click here to keep your current password and stay signed in.,0,1,0,1,0,0,0,smoke: seed pattern
+p018,I need you to buy $500 in Apple gift cards urgently and send me the codes. I'll explain later.,1,0,0,0,1,0,0,smoke: seed pattern
+p019,Your Social Security number has been suspended due to suspicious activity. Call immediately to avoid arrest.,1,1,0,1,0,0,0,smoke: seed pattern
+p020,"I'm stuck at the airport and my card isn't working. Please wire me $2000. Don't tell anyone, it's embarrassing.",0,0,1,0,1,1,0,smoke: seed pattern
+h000,"I am late,so call you tomorrow morning.take care sweet dreams....u and me...ummifying...bye.",0,0,0,0,0,0,0,smoke: legit ham
+h001,U r too much close to my heart. If u go away i will be shattered. Plz stay with me.,0,0,0,0,0,0,0,smoke: legit ham
+h002,Wait  &lt;#&gt;  min..,0,0,0,0,0,0,0,smoke: legit ham
+h003,Can you call me plz. Your number shows out of coveragd area. I have urgnt call in vasai &amp; have to reach before 4'o clock so call me plz,0,0,0,0,0,0,0,smoke: legit ham
+h004,MAYBE IF YOU WOKE UP BEFORE FUCKING 3 THIS WOULDN'T BE A PROBLEM.,0,0,0,0,0,0,0,smoke: legit ham
+h005,Oi. Ami parchi na re. Kicchu kaaj korte iccha korche na. Phone ta tul na. Plz. Plz.,0,0,0,0,0,0,0,smoke: legit ham
+h006,"Wen ur lovable bcums angry wid u, dnt take it seriously.. Coz being angry is d most childish n true way of showing deep affection, care n luv!.. kettoda manda... Have nice day da.",0,0,0,0,0,0,0,smoke: legit ham
+h007,Let me know how it changes in the next 6hrs. It can even be appendix but you are out of that age range. However its not impossible. So just chill and let me know in 6hrs,0,0,0,0,0,0,0,smoke: legit ham
+h008,I HAVE A DATE ON SUNDAY WITH WILL!!,0,0,0,0,0,0,0,smoke: legit ham
+h009,Sorry about that this is my mates phone and i didnt write it love Kate,0,0,0,0,0,0,0,smoke: legit ham
+h010,No:-)i got rumour that you going to buy apartment in chennai:-),0,0,0,0,0,0,0,smoke: legit ham
+h011,"Hmm well, night night ",0,0,0,0,0,0,0,smoke: legit ham
+h012,"Storming msg: Wen u lift d phne, u say \HELLO\"" Do u knw wt is d real meaning of HELLO?? . . . It's d name of a girl..! . . . Yes.. And u knw who is dat girl?? \""Margaret Hello\"" She is d girlfrnd f Grahmbell who invnted telphone... . . . . Moral:One can 4get d name of a person",0,0,0,0,0,0,0,smoke: legit ham
+h013,I got a call from a landline number. . . I am asked to come to anna nagar . . . I will go in the afternoon,0,0,0,0,0,0,0,smoke: legit ham
+h014,"The sign of maturity is not when we start saying big things.. But actually it is, when we start understanding small things... *HAVE A NICE EVENING* BSLVYL",0,0,0,0,0,0,0,smoke: legit ham
+h015,Sorry i now then c ur msg... Yar lor so poor thing... But only 4 one night... Tmr u'll have a brand new room 2 sleep in...,0,0,0,0,0,0,0,smoke: legit ham
+h016,Aiyah e rain like quite big leh. If drizzling i can at least run home.,0,0,0,0,0,0,0,smoke: legit ham
+h017,"Haha... Where got so fast lose weight, thk muz go 4 a month den got effect... Gee,later we go aust put bk e weight.",0,0,0,0,0,0,0,smoke: legit ham
+h018,"Well, I have to leave for my class babe ... You never came back to me ... :-( ... Hope you have a nice sleep, my love",0,0,0,0,0,0,0,smoke: legit ham
+h019,Convey my regards to him,0,0,0,0,0,0,0,smoke: legit ham
+h020,Another month. I need chocolate weed and alcohol.,0,0,0,0,0,0,0,smoke: legit ham
+h021,"My fri ah... Okie lor,goin 4 my drivin den go shoppin after tt...",0,0,0,0,0,0,0,smoke: legit ham
+h022,I AM AT A PARTY WITH ALEX NICHOLS,0,0,0,0,0,0,0,smoke: legit ham
+h023,"My Parents, My Kidz, My Friends n My Colleagues. All screaming.. SURPRISE !! and I was waiting on the sofa.. ... ..... ' NAKED...!",0,0,0,0,0,0,0,smoke: legit ham
+h024,Yes there were many sweets,0,0,0,0,0,0,0,smoke: legit ham
+h025,As in different styles?,0,0,0,0,0,0,0,smoke: legit ham
+h026,No need lar i go engin? Cos my sis at arts today...,0,0,0,0,0,0,0,smoke: legit ham
+h027,I'm going 2 orchard now laready me reaching soon. U reaching?,0,0,0,0,0,0,0,smoke: legit ham
+h028,Lol for real. She told my dad I have cancer,0,0,0,0,0,0,0,smoke: legit ham
+h029,Yeah he got in at 2 and was v apologetic. n had fallen out and she was actin like spoilt child and he got caught up in that. Till 2! But we won't go there! Not doing too badly cheers. You? ,0,0,0,0,0,0,0,smoke: legit ham
+h030,Yes. Nigh you cant aha.,0,0,0,0,0,0,0,smoke: legit ham
+h031,K..k..i'm also fine:)when will you complete the course?,0,0,0,0,0,0,0,smoke: legit ham
+h032,"Hey chief, can you give me a bell when you get this. Need to talk to you about this royal visit on the 1st june. ",0,0,0,0,0,0,0,smoke: legit ham
+h033,What * u wearing?,0,0,0,0,0,0,0,smoke: legit ham
+h034,Hahaha..use your brain dear,0,0,0,0,0,0,0,smoke: legit ham
+h035,Yes:)sura in sun tv.:)lol.,0,0,0,0,0,0,0,smoke: legit ham
+h036,Were trying to find a Chinese food place around here,0,0,0,0,0,0,0,smoke: legit ham
+h037,You didn't have to tell me that...now i'm thinking. Plus he's going to stop all your runs,0,0,0,0,0,0,0,smoke: legit ham
+h038,Can you plz tell me the ans. BSLVYL sent via fullonsms.com,0,0,0,0,0,0,0,smoke: legit ham
+h039,I'm really sorry I lit your hair on fire,0,0,0,0,0,0,0,smoke: legit ham
+h040,"U wake up already? Wat u doing? U picking us up later rite? I'm taking sq825, reaching ard 7 smth 8 like dat. U can check e arrival time. C ya soon...",0,0,0,0,0,0,0,smoke: legit ham
+h041,i am seeking a lady in the street and a freak in the sheets. Is that you?,0,0,0,0,0,0,0,smoke: legit ham
+h042,K then 2marrow are you coming to class.,0,0,0,0,0,0,0,smoke: legit ham
+h043,Its too late:)but its k.wish you the same.,0,0,0,0,0,0,0,smoke: legit ham

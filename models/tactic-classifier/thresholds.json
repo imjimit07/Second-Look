@@ -1,0 +1,30 @@
+{
+  "urgency": {
+    "threshold": 0.3,
+    "f1": 0.8496
+  },
+  "authority": {
+    "threshold": 0.35,
+    "f1": 0.8356
+  },
+  "financial_lure": {
+    "threshold": 0.7,
+    "f1": 0.9444
+  },
+  "credential_harvesting": {
+    "threshold": 0.44999999999999996,
+    "f1": 0.8613
+  },
+  "payment_redirection": {
+    "threshold": 0.5999999999999999,
+    "f1": 0.9189
+  },
+  "secrecy": {
+    "threshold": 0.49999999999999994,
+    "f1": 0.8026
+  },
+  "tech_support": {
+    "threshold": 0.5999999999999999,
+    "f1": 0.5333
+  }
+}

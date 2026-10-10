@@ -1,0 +1,22 @@
+{
+  "tactic_columns": [
+    "t1_urgency",
+    "t2_authority",
+    "t3_financial",
+    "t4_credential",
+    "t5_payment",
+    "t6_secrecy",
+    "t7_tech_support"
+  ],
+  "tactic_names": [
+    "urgency",
+    "authority",
+    "financial_lure",
+    "credential_harvesting",
+    "payment_redirection",
+    "secrecy",
+    "tech_support"
+  ],
+  "base_model": "distilbert-base-uncased",
+  "threshold": 0.5
+}

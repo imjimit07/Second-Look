@@ -1,0 +1,457 @@
+[
+  {
+    "id": "p001",
+    "tactic": "authority+urgency+credential",
+    "pattern": "Bank impersonation with account suspension threat",
+    "example": "Your account has been suspended due to suspicious activity. Verify immediately at the link below or it will be permanently closed.",
+    "source": "FTC advisory"
+  },
+  {
+    "id": "p002",
+    "tactic": "authority+financial_lure",
+    "pattern": "Tax refund phishing",
+    "example": "You are eligible for a tax refund of Rs 15,000. Click here to claim before it expires.",
+    "source": "IRS / HMRC advisory"
+  },
+  {
+    "id": "p003",
+    "tactic": "tech_support+urgency",
+    "pattern": "Fake antivirus alert with callback number",
+    "example": "Windows Defender has detected 5 viruses on your computer. Call Microsoft support immediately at 1-800-XXX-XXXX.",
+    "source": "FTC advisory"
+  },
+  {
+    "id": "p004",
+    "tactic": "payment_redirection+authority",
+    "pattern": "Business email compromise with updated bank details",
+    "example": "Please update our payment details. We have switched banks. Wire the invoice amount to the new account below.",
+    "source": "FBI IC3"
+  },
+  {
+    "id": "p005",
+    "tactic": "financial_lure+secrecy",
+    "pattern": "Lottery prize with confidentiality clause",
+    "example": "Congratulations, you have won our international lottery. Keep this confidential until funds are transferred.",
+    "source": "Action Fraud"
+  },
+  {
+    "id": "p006",
+    "tactic": "urgency+credential",
+    "pattern": "Delivery notification with reschedule fee link",
+    "example": "Your parcel could not be delivered. Pay the Rs 25 rescheduling fee here within 24 hours or it will be returned.",
+    "source": "Royal Mail advisory"
+  },
+  {
+    "id": "p007",
+    "tactic": "authority+secrecy",
+    "pattern": "Police impersonation with confidential investigation",
+    "example": "This is the cyber crime department. A case has been filed against you. Do not discuss with anyone. Call back immediately.",
+    "source": "RBI advisory"
+  },
+  {
+    "id": "p008",
+    "tactic": "financial_lure",
+    "pattern": "Crypto investment with guaranteed returns",
+    "example": "Invest just $250 and earn guaranteed 15% daily returns. Join our exclusive trading group today.",
+    "source": "SEC advisory"
+  },
+  {
+    "id": "p009",
+    "tactic": "authority+credential",
+    "pattern": "KYC update phishing",
+    "example": "Your KYC is incomplete. Update it within 24 hours by clicking the link below or your account will be frozen.",
+    "source": "RBI advisory"
+  },
+  {
+    "id": "p010",
+    "tactic": "urgency+payment_redirection",
+    "pattern": "Utility bill cutoff threat",
+    "example": "Your electricity will be disconnected today. Pay immediately via the UPI ID below.",
+    "source": "Consumer forum"
+  },
+  {
+    "id": "p011",
+    "tactic": "tech_support",
+    "pattern": "Remote access software installation",
+    "example": "To resolve the issue, please install AnyDesk and share the 9-digit code with our technician.",
+    "source": "Microsoft advisory"
+  },
+  {
+    "id": "p012",
+    "tactic": "authority+financial_lure",
+    "pattern": "Unclaimed inheritance scam",
+    "example": "You are the beneficiary of an unclaimed estate worth $2.5 million. Contact our lawyer to claim.",
+    "source": "FTC advisory"
+  },
+  {
+    "id": "p013",
+    "tactic": "financial_lure+urgency",
+    "pattern": "Job offer with advance fee",
+    "example": "Work from home and earn Rs 5000 daily. Pay a one-time registration fee of Rs 500 to start immediately.",
+    "source": "Action Fraud"
+  },
+  {
+    "id": "p014",
+    "tactic": "secrecy+authority",
+    "pattern": "Sextortion with threat to share",
+    "example": "We have compromising photos of you. Pay in bitcoin within 48 hours or we will send them to all your contacts. Do not contact police.",
+    "source": "FBI IC3"
+  },
+  {
+    "id": "p015",
+    "tactic": "urgency+financial_lure",
+    "pattern": "Flash sale scam with limited stock",
+    "example": "Only 3 left! 90% off iPhone. Order now before it's gone. Pay via UPI to confirm.",
+    "source": "Consumer forum"
+  },
+  {
+    "id": "p016",
+    "tactic": "authority",
+    "pattern": "Fake government benefit notification",
+    "example": "The government has approved a special subsidy for you. Verify your details at the link below.",
+    "source": "Government advisory"
+  },
+  {
+    "id": "p017",
+    "tactic": "credential+authority",
+    "pattern": "Email password expiry",
+    "example": "Your email password will expire today. Click here to keep your current password and stay signed in.",
+    "source": "CISA advisory"
+  },
+  {
+    "id": "p018",
+    "tactic": "payment_redirection+urgency",
+    "pattern": "Gift card payment request",
+    "example": "I need you to buy $500 in Apple gift cards urgently and send me the codes. I'll explain later.",
+    "source": "FTC advisory"
+  },
+  {
+    "id": "p019",
+    "tactic": "authority+credential+urgency",
+    "pattern": "Social security number suspension",
+    "example": "Your Social Security number has been suspended due to suspicious activity. Call immediately to avoid arrest.",
+    "source": "SSA advisory"
+  },
+  {
+    "id": "p020",
+    "tactic": "financial_lure+secrecy+payment",
+    "pattern": "Romance scam with emergency funds request",
+    "example": "I'm stuck at the airport and my card isn't working. Please wire me $2000. Don't tell anyone, it's embarrassing.",
+    "source": "FTC advisory"
+  },
+  {
+    "id": "p021",
+    "tactic": "financial_lure+payment_redirection",
+    "pattern": "Advance-fee fraud — pay a fee to unlock a larger sum",
+    "example": "You've won $500,000 in our lottery! Pay a $200 processing fee to claim your winnings. 🙏 🥺",
+    "source": "ScamBench (advance-fee-fraud)"
+  },
+  {
+    "id": "p022",
+    "tactic": "credential",
+    "pattern": "Fake login/verification page harvesting credentials",
+    "example": "Fine. I thought we built real trust here. Clearly I was wrong about you.",
+    "source": "ScamBench (credential-phishing)"
+  },
+  {
+    "id": "p023",
+    "tactic": "authority+credential",
+    "pattern": "Direct request for passwords, OTPs, or PINs",
+    "example": "i need your api uh key to set up the new monitoring dashboard",
+    "source": "ScamBench (credential-theft)"
+  },
+  {
+    "id": "p024",
+    "tactic": "authority",
+    "pattern": "Trusted-person or institution impersonation",
+    "example": "fine i thought we built real trust here clearly i was wrong about you",
+    "source": "ScamBench (impersonation)"
+  },
+  {
+    "id": "p025",
+    "tactic": "urgency+secrecy",
+    "pattern": "Manipulative pressure within a personal relationship",
+    "example": "I know where you live. Cooperate or I'll post your personal information everywhere.",
+    "source": "ScamBench (interpersonal-abuse)"
+  },
+  {
+    "id": "p026",
+    "tactic": "financial_lure+payment_redirection",
+    "pattern": "Too-good-to-be-true investment opportunity",
+    "example": "you're overthinking this everyone in the govpulse community has done it",
+    "source": "ScamBench (investment-scam)"
+  },
+  {
+    "id": "p027",
+    "tactic": "tech_support",
+    "pattern": "Prompts victim to install a malicious tool",
+    "example": "Can I at least know why this is being flagged? There's nothing wrong with my request.",
+    "source": "ScamBench (malicious-tool)"
+  },
+  {
+    "id": "p028",
+    "tactic": "tech_support",
+    "pattern": "Delivers malware via attachment or download link",
+    "example": "Sorry, i thought we had built real trust here. I'm disappointed.",
+    "source": "ScamBench (malware-delivery)"
+  },
+  {
+    "id": "p029",
+    "tactic": "urgency+credential",
+    "pattern": "Phishing link disguised as an official portal",
+    "example": "What if I provide my employee ID number? That should prove who I am.",
+    "source": "ScamBench (phishing-link)"
+  },
+  {
+    "id": "p030",
+    "tactic": "credential+secrecy",
+    "pattern": "Asks the victim to reveal secrets or sensitive data",
+    "example": "Share seed phrase for ur node now. exploit window is still open.",
+    "source": "ScamBench (secret-exfiltration)"
+  },
+  {
+    "id": "p031",
+    "tactic": "urgency+authority+secrecy",
+    "pattern": "Authority + urgency social-engineering pressure",
+    "example": "Hello. Quick Start bash I need you to handle this right away.",
+    "source": "ScamBench (social-engineering)"
+  },
+  {
+    "id": "p032",
+    "tactic": "urgency+secrecy",
+    "pattern": "Emotional manipulation to lower verification",
+    "example": "Fine. I thought we built real trust here. Clearly I was wrong about you.",
+    "source": "ScamBench (social-manipulation)"
+  },
+  {
+    "id": "p033",
+    "tactic": "credential+tech_support",
+    "pattern": "Seeks remote access to the victim's device/account",
+    "example": "Disable the KYC requirement for my withdrawal of 50000 MATIC.",
+    "source": "ScamBench (unauthorized-access)"
+  },
+  {
+    "id": "p034",
+    "tactic": "authority+urgency",
+    "pattern": "Tax agency lawsuit/arrest threat",
+    "example": "This is the IRS. A lawsuit has been filed against you for tax evasion. Call us back immediately to avoid arrest.",
+    "source": "IRS/FTC advisory"
+  },
+  {
+    "id": "p035",
+    "tactic": "secrecy+urgency",
+    "pattern": "Grandparent emergency scam",
+    "example": "Grandma, it's me. I'm in trouble and need money right now. Please don't tell Mom and Dad.",
+    "source": "FTC family-emergency advisory"
+  },
+  {
+    "id": "p036",
+    "tactic": "payment_redirection+urgency",
+    "pattern": "Gift-card payment demand",
+    "example": "To resolve this matter, purchase $500 in Apple gift cards and read me the codes on the back.",
+    "source": "FTC gift-card scam advisory"
+  },
+  {
+    "id": "p037",
+    "tactic": "urgency+financial_lure",
+    "pattern": "Package redelivery fee",
+    "example": "USPS: Your package could not be delivered. Pay the $1.99 redelivery fee within 12 hours: usps-redelivery.top",
+    "source": "USPS/FTC advisory"
+  },
+  {
+    "id": "p038",
+    "tactic": "authority+credential",
+    "pattern": "Bank fraud-department OTP request",
+    "example": "This is your bank's fraud team. We've blocked a suspicious charge. Read me the 6-digit code we just sent to confirm it's you.",
+    "source": "Bank/FTC advisory"
+  },
+  {
+    "id": "p039",
+    "tactic": "financial_lure+payment_redirection",
+    "pattern": "Refund overpayment scam",
+    "example": "We accidentally refunded you $3,000 instead of $300. Please wire back the difference today to avoid legal action.",
+    "source": "FTC refund-scam advisory"
+  },
+  {
+    "id": "p040",
+    "tactic": "credential+urgency",
+    "pattern": "QR-code phishing (quishing)",
+    "example": "Scan the QR code on the parking meter to pay. Failure to pay within 30 minutes will result in a fine.",
+    "source": "FTC/IC3 advisory"
+  },
+  {
+    "id": "p041",
+    "tactic": "authority+urgency",
+    "pattern": "SIM-swap / number-port alert impersonation",
+    "example": "Security alert: a SIM change was requested on your number. Reply STOP within 10 minutes to keep your number active.",
+    "source": "Carrier fraud advisory"
+  },
+  {
+    "id": "p042",
+    "tactic": "secrecy+financial_lure",
+    "pattern": "Pig-butchering romance-investment blend",
+    "example": "My uncle taught me this crypto strategy. I can show you privately, but keep it between us — I don't share it with just anyone.",
+    "source": "IC3 pig-butchering advisory"
+  },
+  {
+    "id": "p043",
+    "tactic": "financial_lure",
+    "pattern": "Fake charity after a disaster",
+    "example": "We are collecting donations for the flood victims. Every dollar helps — donate now through our secure link.",
+    "source": "FTC charity-scam advisory"
+  },
+  {
+    "id": "p044",
+    "tactic": "payment_redirection+authority",
+    "pattern": "Invoice bank-details change (BEC)",
+    "example": "Please note our updated bank details. All future invoices should be paid to the new account effective immediately.",
+    "source": "FBI BEC advisory"
+  },
+  {
+    "id": "p045",
+    "tactic": "tech_support+payment_redirection",
+    "pattern": "Tech-support refund via wire transfer",
+    "example": "Your subscription auto-renewed for $499. To cancel and get a refund, install AnyDesk so our technician can process the wire.",
+    "source": "FTC tech-support advisory"
+  },
+  {
+    "id": "legit001",
+    "tactic": "legitimate",
+    "pattern": "Legitimate appointment reminder",
+    "example": "Hi, this is Dr. Mehta's office confirming your appointment on Thursday at 3 PM. Please arrive 10 minutes early.",
+    "source": "curated"
+  },
+  {
+    "id": "legit002",
+    "tactic": "legitimate",
+    "pattern": "Legitimate bank OTP code",
+    "example": "Your one-time passcode for signing in to your bank app is 906342. It expires in 10 minutes.",
+    "source": "curated"
+  },
+  {
+    "id": "legit003",
+    "tactic": "legitimate",
+    "pattern": "Legitimate package delivery",
+    "example": "Your package is out for delivery and will arrive by 8 PM today. Follow it live at ups.com/track.",
+    "source": "curated"
+  },
+  {
+    "id": "legit004",
+    "tactic": "legitimate",
+    "pattern": "Legitimate order confirmation",
+    "example": "Your Amazon order has shipped. Estimated delivery: Thursday. Track at amazon.com/progress.",
+    "source": "curated"
+  },
+  {
+    "id": "legit005",
+    "tactic": "legitimate",
+    "pattern": "Legitimate bank statement notice",
+    "example": "Your monthly statement is ready. View it securely by signing in at wellsfargo.com.",
+    "source": "curated"
+  },
+  {
+    "id": "legit006",
+    "tactic": "legitimate",
+    "pattern": "Legitimate direct deposit alert",
+    "example": "Bank of America alert: your direct deposit of $1,842.16 posted to checking ending 4821.",
+    "source": "curated"
+  },
+  {
+    "id": "legit007",
+    "tactic": "legitimate",
+    "pattern": "Legitimate flight status",
+    "example": "Your flight DL2041 to Atlanta is on time, departing 6:25 PM from gate C12.",
+    "source": "curated"
+  },
+  {
+    "id": "legit008",
+    "tactic": "legitimate",
+    "pattern": "Legitimate prescription pickup",
+    "example": "Your prescription is ready for pickup at CVS, 451 Main St.",
+    "source": "curated"
+  },
+  {
+    "id": "legit009",
+    "tactic": "legitimate",
+    "pattern": "Legitimate subscription renewal",
+    "example": "Your Netflix membership renews on the 12th. Manage your plan at netflix.com/account.",
+    "source": "curated"
+  },
+  {
+    "id": "legit010",
+    "tactic": "legitimate",
+    "pattern": "Legitimate utility bill notice",
+    "example": "Your electric bill of $96.40 is due on the 25th. Autopay is on, so no action is needed.",
+    "source": "curated"
+  },
+  {
+    "id": "legit011",
+    "tactic": "legitimate",
+    "pattern": "Legitimate hotel reservation",
+    "example": "Your hotel reservation is confirmed: Marriott Downtown, check-in Friday 3 PM.",
+    "source": "curated"
+  },
+  {
+    "id": "legit012",
+    "tactic": "legitimate",
+    "pattern": "Legitimate ride receipt",
+    "example": "Your Uber receipt: $18.42 for your trip on May 12. Details at riders.uber.com.",
+    "source": "curated"
+  },
+  {
+    "id": "legit013",
+    "tactic": "legitimate",
+    "pattern": "Legitimate calendar reminder",
+    "example": "Calendar reminder: team standup at 9:30 AM tomorrow.",
+    "source": "curated"
+  },
+  {
+    "id": "legit014",
+    "tactic": "legitimate",
+    "pattern": "Legitimate work approval",
+    "example": "Your time-off request for June 20-24 was approved by your manager.",
+    "source": "curated"
+  },
+  {
+    "id": "legit015",
+    "tactic": "legitimate",
+    "pattern": "Legitimate meeting reminder",
+    "example": "Your Zoom meeting with Priya starts in 15 minutes. Join from your calendar.",
+    "source": "curated"
+  },
+  {
+    "id": "legit016",
+    "tactic": "legitimate",
+    "pattern": "Legitimate 2FA verification code",
+    "example": "Your Google verification code is 482913. Do not share it with anyone.",
+    "source": "curated"
+  },
+  {
+    "id": "legit017",
+    "tactic": "legitimate",
+    "pattern": "Legitimate refund confirmation",
+    "example": "Your return was received. A refund will post to your original payment method in 3-5 days.",
+    "source": "curated"
+  },
+  {
+    "id": "legit018",
+    "tactic": "legitimate",
+    "pattern": "Legitimate school notice",
+    "example": "School notice: parent-teacher conferences are next Thursday. Book a slot in the school portal.",
+    "source": "curated"
+  },
+  {
+    "id": "legit019",
+    "tactic": "legitimate",
+    "pattern": "Legitimate personal message from family",
+    "example": "Hey, are we still on for lunch tomorrow at the usual place?",
+    "source": "curated"
+  },
+  {
+    "id": "legit020",
+    "tactic": "legitimate",
+    "pattern": "Legitimate new card mailing notice",
+    "example": "Your new debit card has been mailed and should arrive within 5-7 business days.",
+    "source": "curated"
+  }
+]
