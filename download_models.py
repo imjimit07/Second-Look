@@ -64,18 +64,13 @@ def download_hf_models():
             print(f"[OK] Saved to {save_path}")
 
 
-def download_classifier(repo_id: str = "YOUR_HF_USERNAME/second-look-classifier"):
+def download_classifier(repo_id: str = "imjimit07/second-look-classifier"):
     """Download the fine-tuned tactic classifier from HuggingFace Hub."""
     from huggingface_hub import snapshot_download
 
     target = MODELS_DIR / "tactic-classifier"
     if (target / "label_metadata.json").exists():
         print("[OK] Classifier already present.")
-        return
-    if "YOUR_HF_USERNAME" in repo_id:
-        print("[!] Placeholder repo id — set your HF username in "
-              "download_classifier(), or train locally with "
-              "train/train_tactic_classifier.py.")
         return
 
     print(f"[...] Downloading classifier from {repo_id}")

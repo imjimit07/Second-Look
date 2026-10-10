@@ -1,14 +1,14 @@
 # Second Look
 
-> Paste a suspicious message. Get the tactic, the evidence, what to do next — and a message you can send to someone you trust.
+> Paste a suspicious message. Get the tactic, the evidence, what to do next and a message you can send to someone you trust.
 
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/)
 [![Track: AI + Cybersecurity](https://img.shields.io/badge/track-AI%20%2B%20Cybersecurity-orange.svg)](#track)
 [![Local-first](https://img.shields.io/badge/inference-100%25%20local-green.svg)](#how-it-works)
 
-**ForgeHacks 2026 — AI + Cybersecurity track**
+**ForgeHacks 2026 - AI + Cybersecurity track**
 
-**100% local inference — classifier, retrieval, and LLM all run on your machine. Nothing you paste is uploaded anywhere.**
+**100% local inference classifier, retrieval, and LLM all run on your machine. Nothing you paste is uploaded anywhere.**
 
 [Demo video](YOUR_YT_LINK) · [Try it locally](#quickstart) · [Results](#results)
 
@@ -16,18 +16,18 @@
 
 ## The Problem
 
-**Renu is 68. She lives in Pune. Her son lives in Toronto.** Three times a week she gets a message she can't quite judge — a bank alert, an insurance refund, a delivery notice. She forwards it to her son. He's asleep. She waits. Sometimes she clicks anyway.
+**Renu is 68. She lives in Pune. Her son lives in Toronto.** Three times a week she gets a message she can't quite judge - a bank alert, an insurance refund, a delivery notice. She forwards it to her son. He's asleep. She waits. Sometimes she clicks anyway.
 
 Second Look is for Renu.
 
-Fraud losses hit **$12.5 billion in the US alone in 2023** (FTC), with the highest per-incident losses among adults 60+. But scammers don't succeed because people don't know scams exist. They succeed because they **isolate you, rush you, and make asking for help feel embarrassing.** Every scam tactic — urgency, authority impersonation, secrecy — exists to prevent the second opinion. Existing defenses don't touch this:
+Fraud losses hit **$12.5 billion in the US alone in 2023** (FTC), with the highest per-incident losses among adults 60+. But scammers don't succeed because people don't know scams exist. They succeed because they **isolate you, rush you, and make asking for help feel embarrassing.** Every scam tactic - urgency, authority impersonation, secrecy exists to prevent the second opinion. Existing defenses don't touch this:
 
 - **Spam filters are silent and binary.** They block or don't block. No explanation, no teaching, no path forward when they fail.
 - **Pasting a scam into a public chatbot** leaks bank details, phone numbers, and personal messages to a third party.
 - **Bank and government advisories** are static lists of examples that go stale, written above the reading level of the people most targeted.
-- **Nothing manufactures a second opinion.** The single most protective factor against a scam is not being alone with the message — and no consumer tool is designed to produce that second opinion.
+- **Nothing manufactures a second opinion.** The single most protective factor against a scam is not being alone with the message and no consumer tool is designed to produce that second opinion.
 
-**Second Look addresses the isolation vector directly.** It analyzes the message locally, names the tactic in plain language, tells the user what to do, and — critically — generates a short brief the user can forward to a family member or friend asking them to weigh in.
+**Second Look addresses the isolation vector directly.** It analyzes the message locally, names the tactic in plain language, tells the user what to do, and critically generates a short brief the user can forward to a family member or friend asking them to weigh in.
 
 **Target users:** older adults like Renu and their families (highest loss rates, and the "is this real?" forward is already how they try to cope); anyone without a technical person to ask; small businesses facing business email compromise.
 
@@ -37,13 +37,14 @@ Fraud losses hit **$12.5 billion in the US alone in 2023** (FTC), with the highe
 
 Given a suspicious SMS, email, DM, or chat log, Second Look returns:
 
-1. **Detected tactics** — which of 7 manipulation patterns the message uses.
-2. **Evidence** — the specific URLs, keywords, and matched known-scam patterns behind the decision.
-3. **A plain-language explanation** — grounded in the structured evidence and the original message — it cannot invent red flags.
-4. **Action steps** — ordered by priority: what to do now, how to verify, where to report.
-5. **A trusted-contact brief** — a short, warm message the user can send to someone they trust, written for *that person*. Renu can send it to her son at 2 AM his time; she doesn't have to explain what a phishing URL is — Second Look already did. She just has to hit send.
+1. **Detected tactics** - which of 7 manipulation patterns the message uses.
+2. **Evidence** - the specific URLs, keywords, and matched known-scam patterns behind the decision.
+3. **A plain-language explanation** - grounded in the structured evidence and the original message - it cannot invent red flags.
+4. **Action steps** - ordered by priority: what to do now, how to verify, where to report.
+5. **A trusted-contact brief** - a short, warm message the user can send to someone they trust, written for *that person*. Renu can send it to her son at 2 AM his time; she doesn't have to explain what a phishing URL is - Second Look already did. She just has to hit send.
 
-![App screenshot](assets/screenshot_scam.png)
+![App screenshot](assets/scam.png)
+![App screenshot](assets/Yes.png)
 
 ---
 
@@ -61,9 +62,18 @@ flowchart TD
     D --> E[Grounded explanation<br/>Ollama qwen3:4b]
     D --> F[Action guidance<br/>template-based]
     D --> G[Trusted-contact brief<br/>Ollama qwen3:4b]
-    style D fill:#f9e79f
-    style E fill:#d5f5e3
-    style G fill:#d5f5e3
+
+    style A fill:#1f2937,stroke:#374151,color:#f9fafb
+    style B fill:#1f2937,stroke:#374151,color:#f9fafb
+    style C1 fill:#1f2937,stroke:#374151,color:#f9fafb
+    style C2 fill:#1f2937,stroke:#374151,color:#f9fafb
+    style C3 fill:#1f2937,stroke:#374151,color:#f9fafb
+
+    style D fill:#92400e,stroke:#b45309,color:#fef3c7
+
+    style E fill:#065f46,stroke:#047857,color:#d1fae5
+    style F fill:#1f2937,stroke:#374151,color:#f9fafb
+    style G fill:#065f46,stroke:#047857,color:#d1fae5
 ```
 
 | Stage | What | Why |
@@ -72,13 +82,13 @@ flowchart TD
 | Tactic classifier | DistilBERT fine-tuned for multi-label classification over 7 tactics | Real scams layer tactics |
 | URL feature engine | Lexical + Unicode confusable detection, brand-in-subdomain, suspicious TLDs | Catches phishing text-only classifiers miss |
 | Pattern retrieval | Sentence-transformer embeddings + FAISS over 65 curated scam **and legitimate** patterns | Grounds the explanation in real prior cases; catches template scams the classifier has never seen |
-| Fusion | `src/fuse.py` — single code path shared by app and eval | What the eval measures is what the app does |
-| Explanation | Ollama `qwen3:4b`, constrained to the message + evidence | Grounded generation — cannot invent red flags; deterministic template fallback if the LLM is unavailable |
+| Fusion | `src/fuse.py` - single code path shared by app and eval | What the eval measures is what the app does |
+| Explanation | Ollama `qwen3:4b`, constrained to the message + evidence | Grounded generation - cannot invent red flags; deterministic template fallback if the LLM is unavailable |
 | Guidance | Template-based action steps keyed to tactics and decision band | Deterministic; never fails on demo day |
 
-**Why not just prompt an LLM?** A zero-shot LLM matches our recall but has far worse precision (0.613 vs 0.855) and runs at ~2.7 items/s vs our ~53 items/s — **~20× slower** on the same machine. Second Look is a fine-tuned classifier plus retrieval plus a grounded generator, evaluated against both a keyword-rule baseline and a zero-shot LLM baseline.
+**Why not just prompt an LLM?** A zero-shot LLM matches our recall but has far worse precision (0.613 vs 0.855) and runs at ~2.7 items/s vs our ~53 items/s - **~20× slower** on the same machine. Second Look is a fine-tuned classifier plus retrieval plus a grounded generator, evaluated against both a keyword-rule baseline and a zero-shot LLM baseline.
 
-**Privacy is a feature, not an implementation detail.** All inference — classifier, embeddings, retrieval, and the LLM explanation — runs **locally** via Ollama. No message content leaves the user's machine. A tool that asks you to paste your bank SMS into a server is self-defeating.
+**Privacy is a feature, not an implementation detail.** All inference - classifier, embeddings, retrieval, and the LLM explanation - runs **locally** via Ollama. No message content leaves the user's machine. A tool that asks you to paste your bank SMS into a server is self-defeating.
 
 ---
 
@@ -108,7 +118,7 @@ Per-tactic F1-optimal thresholds (tuned on val by `train/tune_thresholds.py`):
 
 Second Look **exceeds the zero-shot LLM's recall (0.980 vs 0.932) while raising precision by 24 points**, at ~20× the throughput.
 
-### Ablation — what each component actually contributes
+### Ablation - what each component actually contributes
 
 `eval/ablation.py` re-runs the eval with components disabled (cached evidence, production `fuse()` path):
 
@@ -120,14 +130,14 @@ Second Look **exceeds the zero-shot LLM's recall (0.980 vs 0.932) while raising 
 | − Tactic classifier | 0.520 | 1.000 | 0.040 | 0.077 |
 | − Fusion formula (plain max) | 0.900 | 0.857 | 0.960 | 0.906 |
 
-Honest reading: on this benchmark the **tactic classifier carries the binary decision** — remove it and F1 collapses to 0.077. URL features and retrieval show no binary delta *here* because ScamBench scams are tactic-heavy, so the classifier already covers them; and our fusion formula buys +2pt recall over a naive max.
+Honest reading: on this benchmark the **tactic classifier carries the binary decision** - remove it and F1 collapses to 0.077. URL features and retrieval show no binary delta *here* because ScamBench scams are tactic-heavy, so the classifier already covers them; and our fusion formula buys +2pt recall over a naive max.
 
-But the benchmark under-credits the redundant components, because it doesn't contain their designed failure mode. **Adversarial probe** — a template phish with quiet text and a fresh domain (`"USPS: your package could not be delivered. Pay the 1.99 redelivery fee within 12 hours: usps-redelivery.top"`):
+But the benchmark under-credits the redundant components, because it doesn't contain their designed failure mode. **Adversarial probe** - a template phish with quiet text and a fresh domain (`"USPS: your package could not be delivered. Pay the 1.99 redelivery fee within 12 hours: usps-redelivery.top"`):
 
-- Tactic classifier top probability: **0.029** — a miss on its own
-- URL features: risk 15 — a miss on its own
+- Tactic classifier top probability: **0.029** - a miss on its own
+- URL features: risk 15 - a miss on its own
 - Retrieval: matches the known *"Package redelivery fee"* pattern at **0.95 similarity**
-- **Full system: `scam` 83/100. Without retrieval: `likely_legitimate` 15/100 — a miss.**
+- **Full system: `scam` 83/100. Without retrieval: `likely_legitimate` 15/100 - a miss.**
 
 Retrieval is what catches scams that are new to the classifier but not new to the world. URL features primarily surface *displayed evidence* (the "why" panel) even when the classifier carries the score. The components are non-redundant across the failure-mode space, not within one benchmark.
 
@@ -170,7 +180,7 @@ python train/build_pattern_index.py
 streamlit run app.py
 ```
 
-The fine-tuned classifier is hosted at [`YOUR_HF_USERNAME/second-look-classifier`](https://huggingface.co/YOUR_HF_USERNAME/second-look-classifier) and downloaded automatically by `download_models.py` (set your username in `download_classifier()`). If you'd rather train locally, the next section shows how.
+The fine-tuned classifier is hosted at [`imjimit07/second-look-classifier`](https://huggingface.co/imjimit07/second-look-classifier) and downloaded automatically by `download_models.py`. If you'd rather train locally, the next section shows how.
 
 **To reproduce training from scratch:**
 
@@ -194,7 +204,7 @@ python eval/ablation.py
 
 Honest scope, per Devpost submission requirement.
 
-- **`tech_support` is not F1-competitive** (F1 0.533 at its tuned threshold 0.60). The source data has only 80 positives for this tactic; upsampling to 330 in training did not overcome the weak signal. When a tech-support scam appears, the decision is still correct — other tactics carry the score — but the tactic tag itself is unreliable.
+- **`tech_support` is not F1-competitive** (F1 0.533 at its tuned threshold 0.60). The source data has only 80 positives for this tactic; upsampling to 330 in training did not overcome the weak signal. When a tech-support scam appears, the decision is still correct - other tactics carry the score - but the tactic tag itself is unreliable.
 - **English only.** ScamBench covers 14 languages; we filtered to English for the classifier.
 - **Trained on ScamBench + curated benign examples.** May not generalize to scam types not represented in the source data.
 - **1,411 agent-security rows** (research-assisted, admin-override, prompt-injection variants) were excluded from training rather than labeled all-zero, because they describe attacks on AI agents, not human scams.
@@ -207,14 +217,14 @@ Honest scope, per Devpost submission requirement.
 
 - **Direct:** older adults like Renu, and anyone who receives a suspicious message and doesn't have a technical person to ask.
 - **Indirect:** family members and caregivers, by turning "is this real?" into a fast, low-friction exchange across time zones.
-- **Structural:** moves the design center of scam defense from *detection* (commoditized by Google and Microsoft) to *behavior* — manufacturing the second opinion scammers exist to prevent.
+- **Structural:** moves the design center of scam defense from *detection* (commoditized by Google and Microsoft) to *behavior* - manufacturing the second opinion scammers exist to prevent.
 - **Extensible:** the fusion + guidance + brief pipeline generalizes to payroll redirection, invoice fraud, romance scams, pig-butchering.
 
 ---
 
 ## Track
 
-**AI + Cybersecurity** — *"Build an AI-powered solution that helps people recognize, prevent, verify, or respond to scams, impersonation, and fraud enabled by AI or modern technologies."*
+**AI + Cybersecurity** - *"Build an AI-powered solution that helps people recognize, prevent, verify, or respond to scams, impersonation, and fraud enabled by AI or modern technologies."*
 
 Second Look addresses **recognize** (tactic labels + evidence), **verify** (channel-you-chose guidance + trusted-contact brief), and **respond** (priority-ordered action steps + escalation path).
 
